@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="io.renren.dao.SysGeneratorDao">
+
 	<!--mysql-->
 	<!--<select id="queryList" resultType="map">
 		select table_name tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables 
@@ -17,14 +18,13 @@
 
 	<!--oracle-->
 	<select id="queryList" resultType="map">
-		select * from(select * from(select t.*,rownum rn from(select a.table_name tableName,a.last_analyzed lastAnalyzed,b.comments
-		tableComment
+		select * from(select * from(select t.*,rownum rn from(select a.table_name tableName,a.last_analyzed lastAnalyzed,b.comments tableComments
 		from user_tables a left join user_tab_comments b
 		on a.table_name=b.table_name where 1=1
 		<if test="tableName !=null and tableName.trim()!=''">
 			and table_name like '%'||#{tableName}||'%'
 		</if>
-		)t) where rn $gt;0)tt where tt.rn $lt;=10
+		)t) where rn <![CDATA[ >  ]]> #{offset})tt where tt.rn<![CDATA[ <= ]]>(#{offset}+#{limit})
 	</select>
 
 	<!--<select id="queryTotal" resultType="int">

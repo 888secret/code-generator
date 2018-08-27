@@ -15,16 +15,20 @@ spring:
         #password: 123456
         driverClassName: oracle.jdbc.driver.OracleDriver
         url: jdbc:oracle:thin:@localhost:1521:ORCL
-        username: buoyUser
+        username: huoyUser
         password: PW123456
 
     jackson:
         time-zone: GMT+8
         date-format: yyyy-MM-dd HH:mm:ss
+        default-property-inclusion: always
     resources:
             static-locations: classpath:/static/,classpath:/views/
+
 
 # Mybatis配置
 mybatis:
     mapperLocations: classpath:mapper/**/*.xml
+    configuration:
+        call-setters-on-nulls: true
 
